@@ -1,10 +1,16 @@
 package ar.com.poo;
 
+import herencia.DBUtilDos;
+
 public class Buscador {
 
 	private String claveBusqueda;
 	private Articulo [] resultado; //nueva class ctrl+n
+	private IFiltro filtro;
 	
+	
+
+/////////////////////////////////////////////////    CONSTRUCTORES   //////////////////////////////////////////////
 	public Buscador() {} //constructor por defecto
 	
 	
@@ -16,19 +22,27 @@ public class Buscador {
 		//informacion 
 		this.setResultado(new Articulo [] {}) ;// de esta manera si no hay un articulo creado  lo inicializo aqui
 		// y es preferible que devuelva en blanco a un null pointer exception
+		
+		setFiltro(new MasVendidos(getResultado()));
 	}
-
+	
+	
+//////////////////////////////////////////////// METODOS BUSCAR    ////////////////////////////////////////////////
 
 	public void buscar() { //firma del metodo
 		DBUtil db = new DBUtil();
+		DBUtilDos db2 = new DBUtilDos();
 		//se puede hacer de dos formas
 		/*Articulo [] resultado = db.obtenerResultados(this.claveBusqueda); 
 		this.resultado=resultado;*/
 		
 		//la otra forma de hacerlo es 
 		this.setResultado(db.obtenerResultados(this.claveBusqueda)) ;
+		this.setResultado(db2.obtenerResultados(this.claveBusqueda));
 	}
-	////////////////////////////////////////////////////////////////////////////////////////////
+	
+	
+	/////////////////////////////////////   MOSTRAR RESULTADOS   ///////////////////////////////////////////////////////
 	
 	public void mostrarResultados() {
 
@@ -44,7 +58,36 @@ public class Buscador {
 			
 		}
 	}
-/////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////   METODOS FILTROS ////////////
+	
+	public void ordenar (String claveOrdenamiento) {
+		// que tipo de ordenamiento es 
+		switch (claveOrdenamiento) {
+			case "MASVENDIDOS":
+				setFiltro(new MasVendidos(getResultado()));	
+			break;
+			case "MAYORPRECIO":
+				setFiltro(new MayorPrecio(getResultado()));
+			break;
+
+		default:
+				setFiltro(new MasVendidos(getResultado()));	
+			break;
+		}
+		
+		 this.filtro.ordenar(resultado);
+	}
+	
+	
+	public void cambiarFiltro(IFiltro nuevoFiltro) {
+		setFiltro(nuevoFiltro);
+	}
+	
+	
+	
+	
+	
+//////////////////////////////////////GETTERS AND SETTERS///////////////////////////////////////////////////////
 
 	public int getcantidadBusquedas () {
 		return resultado.length;
@@ -71,6 +114,14 @@ public class Buscador {
 		this.resultado = resultado;
 	}
 	
+	public IFiltro getFiltro() {
+		return filtro;
+	}
+
+
+	public void setFiltro(IFiltro filtro) {
+		this.filtro = filtro;
+	}
 	
 	
 }

@@ -9,7 +9,7 @@ public class Principal {
 	System.out.println("hola mundo");
 	
 	//5 km
-			Auto miPrimerAuto = new Auto(5);//f3 f5		
+			Auto miPrimerAuto = new Auto(5);//f3 ENTRAR AL CONSTRUCTOR  f5 ENTRA A LA INSTANCIA		
 
 			miPrimerAuto.encender();
 			

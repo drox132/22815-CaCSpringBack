@@ -9,17 +9,28 @@ public class Main {
 		
 		//simulaaar que el usuario escribio algo
 		
-		String claveUsuaaario= "Iron Man";
+//		String claveUsuaaario= "Iron Man";
+//		
+//		Buscador miBuscador = new Buscador(claveUsuaaario);
+//		
+//		//luego le seteamos el valor de la vlave de busquda para que el metodo funcione y no de error
+//		
+//		//miBuscador.setClaveBusqueda(claveUsuaaario); esto ya no es necesario ya que creamos un constructor que reciba una clave de usuario
+//		
+//		 miBuscador.buscar();
+//		 
+//		 miBuscador.mostrarResultados();
 		
-		Buscador miBuscador = new Buscador(claveUsuaaario);
 		
-		//luego le seteamos el valor de la vlave de busquda para que el metodo funcione y no de error
-		
-		//miBuscador.setClaveBusqueda(claveUsuaaario); esto ya no es necesario ya que creamos un constructor que reciba una clave de usuario
+        String claveBusqueda= "Iron Man";
+		String claveOrdenamiento= "MAYORPRECIO";
+        
+		Buscador miBuscador = new Buscador(claveBusqueda);
 		
 		 miBuscador.buscar();
-		 
-		 miBuscador.mostrarResultados();
+		miBuscador.ordenar(claveOrdenamiento); 
+		claveOrdenamiento= "MASVENDIDOS";
+		miBuscador.ordenar(claveOrdenamiento); 
 		
 		
 	}
